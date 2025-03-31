@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, Text, StyleSheet, Image} from 'react-native';
 
 const AlignContentLayout = () => {
   const [alignContent, setAlignContent] = useState('flex-start');
+  const [isGrayed, setIsGrayed]= useState(false);
+  const toggleImage=()=>{
+    setIsGrayed(!isGrayed)
+  }
 
   return (
+
     <PreviewLayout
       label="alignContent"
       selectedValue={alignContent}
@@ -17,7 +22,19 @@ const AlignContentLayout = () => {
         'space-around',
       ]}
       setSelectedValue={setAlignContent}>
-      <View style={[styles.box, {backgroundColor: 'orangered'}]} />
+      <View style={[styles.box, {backgroundColor: 'transparent'}]}> 
+      <TouchableOpacity onPress={toggleImage}>
+        {isGrayed? (
+          <View style={styles.grayBox} />
+        ):(  
+        <Image
+         style={styles.tinyLogo}
+         source={
+           require('./assets/zelda1.jpeg')
+         }
+       />)}
+       </TouchableOpacity>
+      </View>
       <View style={[styles.box, {backgroundColor: 'orange'}]} />
       <View style={[styles.box, {backgroundColor: 'mediumseagreen'}]} />
       <View style={[styles.box, {backgroundColor: 'deepskyblue'}]} />
@@ -65,6 +82,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'aliceblue',
     maxHeight: 400,
   },
+  
+    tinyLogo: {
+      width: 50,
+      height: 50,
+    },
+    logo: {
+      width: 66,
+      height: 58,
+    },
+  
   box: {
     width: 50,
     height: 80,
@@ -101,6 +128,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 24,
   },
+  grayBox:{
+    width: 50,
+    height: 80, 
+  }
 });
 
 export default AlignContentLayout;
